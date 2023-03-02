@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Success : MonoBehaviour
+public class Success2 : MonoBehaviour
 {
-
-    static public bool clear_level0 = false;
+    static public bool clear_level2 = false;
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            SceneManager.LoadScene("Success");
-            clear_level0 = true;
+            SceneManager.LoadScene("Success2");
+            clear_level2 = true;
         }
     }
 }
