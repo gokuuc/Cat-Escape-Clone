@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof (SphereCollider))]
 public class Movement : MonoBehaviour
 {
-    private CharacterController characterController;
+
+    [SerializeField] private Rigidbody _rb;
+
+    [SerializeField] private FixedJoystick _joystick;
 
     public GameObject pause;
 
@@ -18,8 +22,6 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-
         rend = GetComponent<Renderer>();
         rend.enabled = true;
         rend.sharedMaterial = materialy;
@@ -36,14 +38,15 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-            characterController.Move(move * Time.deltaTime * speed);
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0f;
             pause.gameObject.SetActive(true);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.velocity = new Vector3(_joystick.Horizontal * speed, _rb.velocity.y, _joystick.Vertical * speed);
     }
 }
